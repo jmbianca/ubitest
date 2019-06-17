@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3>Liste des élèves</h3>
+
+    {% if students|length > 0 %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Date de naissance</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.firstname }}</td>
+                        <td>{{ student.lastname }}</td>
+                        <td>{{ student.birthdate|date("d/m/Y") }}</td>
+                        <td>
+                            <a href="{{ path('student_edit', {'id': student.id}) }}" class="btn btn-info"><i class="fa fa-edit"></i> </a>
+                            <a href="{{ path('student_delete', {'id': student.id}) }}" class="btn btn-danger"><i class="fa fa-trash-alt"></i> </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        Il n'y a pas d'élève enregistré
+    {% endif %}
+
+    <br>
+    <a class="btn btn-primary" href="{{ path('student_create') }}">Ajouter un élève</a>
+{% endblock %}
+

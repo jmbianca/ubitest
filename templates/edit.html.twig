@@ -8,6 +8,17 @@
             {{ form(form) }}
         </div>
         <div class="col-6">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
             <h4>Notes</h4>
             {% if grades is defined and grades|length > 0 %}
                 <table class="table table-striped">

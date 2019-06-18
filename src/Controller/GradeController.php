@@ -52,10 +52,13 @@ class GradeController extends AbstractController
             $em = $this->getDoctrine()->getManager();
 
             $grade = $form->getData();
-            $em->persist($grade);
-            $em->flush();
-
-            return $this->redirectToRoute('student_edit', ['id' => $student->getId()]);
+            if ($grade->getNote() >= 0 && $grade->getNote() <= 20) {
+                $em->persist($grade);
+                $em->flush();
+                $this->addFlash('success', 'La note a été ajoutée !');
+            } else {
+                $this->addFlash('error', 'La note est non valide !');
+            }
         }
 
         return $this->redirectToRoute('student_edit', ['id' => $student->getId()]);

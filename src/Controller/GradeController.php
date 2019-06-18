@@ -37,8 +37,6 @@ class GradeController extends AbstractController
      */
     public function create(Student $student, Request $request)
     {
-//        dump($request);die;
-
         $grade = new Grade();
         $grade->setStudent($student);
 
